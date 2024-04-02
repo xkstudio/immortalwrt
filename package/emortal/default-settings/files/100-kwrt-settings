@@ -1,0 +1,46 @@
+#!/bin/sh
+# K-Wrt Default Settings
+# Author: Xiaok
+# Date: 2024-04-02
+# Update: 2024-04-02
+
+
+###### System Version ######
+build_date=20240402
+device_name=TL-WR702N
+host_name=TL-WR702N-v1
+sed -i "s/18.06-SNAPSHOT/18.06 @ ${build_date}/g" /etc/openwrt_release
+sed -i "s/ImmortalWrt/K-Wrt/g" /etc/openwrt_release
+
+###### Base informations ######
+uci set system.@system[0].hostname=$host_name
+uci commit system
+
+###### WiFi Settings ######
+wifi_0=$(uci get wireless.radio0.hwmode 2>/dev/null)
+wifi_1=$(uci get wireless.radio1.hwmode 2>/dev/null)
+
+function set_wifi(){
+    _id=$1
+    case $2 in
+        11g)
+            # 2.4G
+            uci set wireless.default_radio${_id}.ssid=$device_name
+        ;;
+        11a)
+            # 5G
+            uci set wireless.default_radio${_id}.ssid=${device_name}-5G
+        ;;
+        *)
+    esac
+
+    if [ ! -z $2 ] ; then
+        uci set wireless.default_radio${_id}.encryption='psk2+tkip+ccmp'
+        uci set wireless.default_radio${_id}.key='15084862585'
+    fi
+}
+
+set_wifi 0 $wifi_0
+set_wifi 1 $wifi_1
+uci commit wireless
+

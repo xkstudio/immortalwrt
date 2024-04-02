@@ -37,7 +37,7 @@ endef
 
 define Package/default-settings/install
 	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_DATA) ./files/openwrt_banner $(1)/etc/openwrt_banner
+	###$(INSTALL_DATA) ./files/openwrt_banner $(1)/etc/openwrt_banner
 
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./files/99-default-settings $(1)/etc/uci-defaults/
@@ -46,6 +46,7 @@ endef
 define Package/default-settings-chn/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./files/99-default-settings-chinese $(1)/etc/uci-defaults/
+	$(INSTALL_BIN) ./files/100-kwrt-settings $(1)/etc/uci-defaults/
 
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
 	po2lmo ./i18n/default.zh-cn.po $(1)/usr/lib/lua/luci/i18n/default.zh-cn.lmo
