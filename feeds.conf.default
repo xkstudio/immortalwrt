@@ -1,4 +1,4 @@
-src-git packages https://github.com/xkstudio/immortalwrt-packages.git;kwrt-18.06
-src-git luci https://github.com/xkstudio/immortalwrt-luci.git;kwrt-18.06
+src-git packages git@github.com:xkstudio/immortalwrt-packages.git;kwrt-18.06
+src-git luci git@github.com:xkstudio/immortalwrt-luci.git;kwrt-18.06
 src-git routing http://git.xk.com/github/openwrt/routing.git;openwrt-19.07
 src-git telephony http://git.xk.com/github/openwrt/telephony.git;openwrt-21.02
