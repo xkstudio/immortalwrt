@@ -4,11 +4,19 @@
 # Date: 2024-04-02
 # Update: 2024-04-02
 
-
-###### System Version ######
 build_date=20240402
-device_name=TL-WR702N
-host_name=TL-WR702N-v1
+
+### For TP-Link
+model_name=$(cat /proc/cpuinfo 2>/dev/null | grep TP-LINK 2>/dev/null | awk '{print $4}')
+model_version=$(cat /proc/cpuinfo 2>/dev/null | grep TP-LINK 2>/dev/null | awk '{print $5}')
+
+if [ -z $model_name ] ; then
+    model_name=K-WRT
+fi
+
+host_name=${model_name}
+[ ! -z $model_version ] && host_name="${host_name}-$model_version"
+
 sed -i "s/ImmortalWrt/K-Wrt/g" /etc/openwrt_release
 sed -i "s/ImmortalWrt/      K-Wrt/g" /etc/banner
 sed -i "s/18.06-SNAPSHOT/18.06 @ ${build_date}/g" /etc/openwrt_release
@@ -27,11 +35,11 @@ function set_wifi(){
     case $2 in
         11g)
             # 2.4G
-            uci set wireless.default_radio${_id}.ssid=$device_name
+            uci set wireless.default_radio${_id}.ssid=$model_name
         ;;
         11a)
             # 5G
-            uci set wireless.default_radio${_id}.ssid=${device_name}-5G
+            uci set wireless.default_radio${_id}.ssid=${model_name}-5G
         ;;
         *)
     esac
