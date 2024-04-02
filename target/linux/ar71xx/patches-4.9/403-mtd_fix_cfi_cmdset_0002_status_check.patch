@@ -1,6 +1,6 @@
 --- a/drivers/mtd/chips/cfi_cmdset_0002.c
 +++ b/drivers/mtd/chips/cfi_cmdset_0002.c
-@@ -1647,7 +1647,7 @@
+@@ -1647,7 +1647,7 @@ static int __xipram do_write_oneword(str
  		}
  
 		if (chip_good(map, adr, &datum))
@@ -9,7 +9,7 @@
  
  		/* Latency issues. Drop the lock, wait a while and retry */
  		UDELAY(map, chip, adr, 1);
-@@ -1664,6 +1664,8 @@
+@@ -1664,6 +1664,8 @@ static int __xipram do_write_oneword(str
  			goto retry;
  		}
  	}
@@ -17,8 +17,8 @@
 + enable_xip:
  	xip_enable(map, chip, adr);
   op_done:
- 	if (mode == FL_OTP_WRITE)
-@@ -2245,7 +2247,6 @@
+	if (mode == FL_OTP_WRITE)
+@@ -2245,7 +2247,6 @@ static int cfi_amdstd_panic_write(struct
  	return 0;
  }
  
@@ -26,7 +26,7 @@
  /*
   * Handle devices with one erase region, that only implement
   * the chip erase command.
-@@ -2338,6 +2342,7 @@
+@@ -2338,6 +2342,7 @@ static int __xipram do_erase_chip(struct
  		}
  	}
  
@@ -34,7 +34,7 @@
  	chip->state = FL_READY;
  	xip_enable(map, chip, adr);
  	DISABLE_VPP(map);
-@@ -2438,6 +2448,7 @@
+@@ -2438,6 +2448,7 @@ static int __xipram do_erase_oneblock(st
  		}
  	}
  
