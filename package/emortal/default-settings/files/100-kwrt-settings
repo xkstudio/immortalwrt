@@ -9,8 +9,10 @@
 build_date=20240402
 device_name=TL-WR702N
 host_name=TL-WR702N-v1
-sed -i "s/18.06-SNAPSHOT/18.06 @ ${build_date}/g" /etc/openwrt_release
 sed -i "s/ImmortalWrt/K-Wrt/g" /etc/openwrt_release
+sed -i "s/ImmortalWrt/K-Wrt/g" /etc/banner
+sed -i "s/18.06-SNAPSHOT/18.06 @ ${build_date}/g" /etc/openwrt_release
+sed -i "s/18.06-SNAPSHOT/18.06 @ ${build_date}/g" /etc/banner
 
 ###### Base informations ######
 uci set system.@system[0].hostname=$host_name
